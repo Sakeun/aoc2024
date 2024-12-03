@@ -10,4 +10,7 @@ func main() {
 	fmt.Println("Day 1:")
 	fmt.Printf("Puzzle one: %v \n", week1.PuzzleOne())
 	fmt.Printf("Puzzle two: %v \n", week1.PuzzleTwo())
+
+	fmt.Printf("Puzzle one: %v \n", week1.DayTwoPuzzleOne())
+	fmt.Printf("Puzzle two: %v \n", week1.DayTwoPuzzleTwo())
 }
