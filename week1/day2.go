@@ -1,6 +1,8 @@
 package week1
 
 import (
+	"fmt"
+	"os"
 	"strconv"
 	"strings"
 )
@@ -13,9 +15,9 @@ func parseInputDay2() [][]int {
 
 	var currNumBuilder strings.Builder
 
-	//content, _ := os.ReadFile("week1/inputs/day2.txt")
+	content, _ := os.ReadFile("week1/inputs/day2.txt")
 
-	for _, val := range input {
+	for _, val := range content {
 		if val == 10 {
 			num, _ := strconv.Atoi(currNumBuilder.String())
 			row = append(row, num)
@@ -112,45 +114,59 @@ func remove(slice []int, i int) []int {
 	return append(slice[:i+1], slice[i+2:]...)
 }
 
+func specificArrLoop(row []int) bool {
+	isSafe := false
+	isInc := false
+
+	for i, num := range row {
+		if i+1 >= len(row) {
+			break
+		}
+
+		if i == 0 {
+			isInc = num < row[i+1]
+		} else if isInc && num > row[i+1] {
+			isSafe = false
+			break
+		} else if !isInc && num < row[i+1] {
+			isSafe = false
+			break
+		}
+
+		isSafe = checkSafe(isInc, row, i)
+
+		if !isSafe {
+			break
+		}
+	}
+
+	return isSafe
+}
+
 func DayTwoPuzzleTwo() int {
 
 	rows := parseInputDay2()
 	amountSafe := 0
 
 	for _, row := range rows {
-		isInc := false
-		isSafe := false
-		passUsed := false
-
-		for i := 0; i <= len(row); {
-			if i+1 >= len(row) {
-				break
-			}
-
-			if i != 0 && !passUsed && (!checkIncSafe(isInc, row, i) || !checkSafe(isInc, row, i)) {
-				passUsed = true
-				row = remove(row, i)
-				continue
-			}
-
-			if i+1 >= len(row) {
-				break
-			}
-
-			if i == 0 {
-				isInc = row[i] < row[i+1]
-			}
-
-			isSafe = checkSafe(isInc, row, i) || checkIncSafe(isSafe, row, i)
-
-			if !isSafe {
-				break
-			}
-			i++
-		}
-
-		if isSafe {
+		if specificArrLoop(row) {
 			amountSafe++
+		} else {
+			isSafe := false
+
+			for i := 0; i < len(row)-1; i++ {
+				arr := make([]int, len(row))
+				copy(arr, row)
+				arr = remove(arr, i)
+
+				isSafe = specificArrLoop(arr)
+
+				if isSafe {
+					fmt.Println("safe on ", row)
+					amountSafe++
+					break
+				}
+			}
 		}
 	}
 
