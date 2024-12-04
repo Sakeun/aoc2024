@@ -1,7 +1,6 @@
 package week1
 
 import (
-	"fmt"
 	"os"
 	"strings"
 )
@@ -125,7 +124,6 @@ func Day4Part2() int {
 	arr := parseDay3()
 	initialLetter := "A"
 	totalOcc := 0
-	fmt.Println(len(arr))
 
 	for i, row := range arr {
 		for j, letter := range row {
