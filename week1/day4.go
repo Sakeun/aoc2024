@@ -7,7 +7,7 @@ import (
 
 const inputDay3 = "MMMSXXMASM\nMSAMXMSMSA\nAMXSXMAAMM\nMSAMASMSMX\nXMASAMXAMM\nXXAMMXXAMA\nSMSMSASXSS\nSAXAMASAAA\nMAMMMXMMMM\nMXMXAXMASX"
 
-func parseDay3() []string {
+func parseDay4() []string {
 	content, _ := os.ReadFile("week1/inputs/day4.txt")
 	inputArr := strings.Split(string(content), "\n")
 
@@ -63,7 +63,7 @@ func checkAround(letter string, col int, row int, arr []string, dir string) bool
 }
 
 func Day4Part1() int {
-	arr := parseDay3()
+	arr := parseDay4()
 	initialLetter := "X"
 	totalOcc := 0
 
@@ -121,7 +121,7 @@ func checkXmas(arr []string, row int, col int) bool {
 }
 
 func Day4Part2() int {
-	arr := parseDay3()
+	arr := parseDay4()
 	initialLetter := "A"
 	totalOcc := 0
 
