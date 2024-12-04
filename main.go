@@ -13,4 +13,5 @@ func main() {
 
 	fmt.Println("Day 4:")
 	fmt.Printf("Puzzle one: %v \n", week1.Day4Part1())
+	fmt.Printf("Puzzle two: %v \n", week1.Day4Part2())
 }

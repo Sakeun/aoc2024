@@ -1,11 +1,12 @@
 package week1
 
 import (
+	"fmt"
 	"os"
 	"strings"
 )
 
-const inputDay3 = "....XXMAS.\n.SAMXMS...\n...S..A...\n..A.A.MS.X\nXMASAMX.MM\nX.....XA.A\nS.S.S.S.SS\n.A.A.A.A.A\n..M.M.M.MM\n.X.X.XMASX"
+const inputDay3 = "MMMSXXMASM\nMSAMXMSMSA\nAMXSXMAAMM\nMSAMASMSMX\nXMASAMXAMM\nXXAMMXXAMA\nSMSMSASXSS\nSAXAMASAAA\nMAMMMXMMMM\nMXMXAXMASX"
 
 func parseDay3() []string {
 	content, _ := os.ReadFile("week1/inputs/day4.txt")
@@ -92,6 +93,44 @@ func Day4Part1() int {
 					totalOcc++
 				}
 				if checkAround(getNextLetter(initialLetter), j+1, i, arr, "R") {
+					totalOcc++
+				}
+			}
+		}
+	}
+
+	return totalOcc
+}
+
+func checkXmas(arr []string, row int, col int) bool {
+	if row == 0 || col == 0 || row+1 >= len(arr) || col+1 >= len(arr[row]) || len(arr[row+1]) == 0 {
+		return false
+	}
+
+	validXmas := false
+	topLeftChar := string(arr[row-1][col-1])
+	botRightChar := string(arr[row+1][col+1])
+	topRightChar := string(arr[row-1][col+1])
+	botLeftChar := string(arr[row+1][col-1])
+
+	if ((botLeftChar == "M" && topRightChar == "S") || (botLeftChar == "S" && topRightChar == "M")) &&
+		((topLeftChar == "M" && botRightChar == "S") || (topLeftChar == "S" && botRightChar == "M")) {
+		validXmas = true
+	}
+
+	return validXmas
+}
+
+func Day4Part2() int {
+	arr := parseDay3()
+	initialLetter := "A"
+	totalOcc := 0
+	fmt.Println(len(arr))
+
+	for i, row := range arr {
+		for j, letter := range row {
+			if string(letter) == initialLetter {
+				if checkXmas(arr, i, j) {
 					totalOcc++
 				}
 			}
