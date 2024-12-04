@@ -1,7 +1,6 @@
 package week1
 
 import (
-	"fmt"
 	"os"
 	"strconv"
 	"strings"
@@ -111,7 +110,7 @@ func DayTwoPuzzleOne() int {
 }
 
 func remove(slice []int, i int) []int {
-	return append(slice[:i+1], slice[i+2:]...)
+	return append(slice[:i], slice[i+1:]...)
 }
 
 func specificArrLoop(row []int) bool {
@@ -151,21 +150,21 @@ func DayTwoPuzzleTwo() int {
 	for _, row := range rows {
 		if specificArrLoop(row) {
 			amountSafe++
-		} else {
-			isSafe := false
+			continue
+		}
 
-			for i := 0; i < len(row)-1; i++ {
-				arr := make([]int, len(row))
-				copy(arr, row)
-				arr = remove(arr, i)
+		isSafe := false
 
-				isSafe = specificArrLoop(arr)
+		for i := 0; i < len(row); i++ {
+			arr := make([]int, len(row))
+			copy(arr, row)
+			arr = remove(arr, i)
 
-				if isSafe {
-					fmt.Println("safe on ", row)
-					amountSafe++
-					break
-				}
+			isSafe = specificArrLoop(arr)
+
+			if isSafe {
+				amountSafe++
+				break
 			}
 		}
 	}
