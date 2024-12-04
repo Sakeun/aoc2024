@@ -1,4 +1,4 @@
-package week1
+package day1
 
 import (
 	"os"
@@ -8,10 +8,11 @@ import (
 )
 
 func parseInput() ([]int, []int) {
-	row1, row2 := []int{}, []int{}
+	var row1 []int
+	var row2 []int
 	var currNumBuilder strings.Builder
 
-	content, _ := os.ReadFile("week1/inputs/day1.txt")
+	content, _ := os.ReadFile("week1/day1/day1.txt")
 
 	for i, val := range content {
 		if val <= 47 || val >= 58 {

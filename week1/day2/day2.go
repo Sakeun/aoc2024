@@ -1,4 +1,4 @@
-package week1
+package day2
 
 import (
 	"os"
@@ -6,15 +6,13 @@ import (
 	"strings"
 )
 
-const input = "7 6 4 2 1\n1 2 7 8 9\n9 7 6 2 1\n1 3 2 4 5\n8 6 4 4 1\n1 3 6 7 9\n5 9 4 3 2"
-
-func parseInputDay2() [][]int {
-	rows := [][]int{}
-	row := []int{}
+func parseInput() [][]int {
+	var rows [][]int
+	var row []int
 
 	var currNumBuilder strings.Builder
 
-	content, _ := os.ReadFile("week1/inputs/day2.txt")
+	content, _ := os.ReadFile("week1/day2/day2.txt")
 
 	for _, val := range content {
 		if val == 10 {
@@ -71,37 +69,12 @@ func checkIncSafe(isInc bool, row []int, i int) bool {
 	return true
 }
 
-func DayTwoPuzzleOne() int {
-	rows := parseInputDay2()
+func PuzzleOne() int {
+	rows := parseInput()
 	amountSafe := 0
 
 	for _, row := range rows {
-		isInc := false
-		isSafe := false
-
-		for i, num := range row {
-			if i+1 >= len(row) {
-				break
-			}
-
-			if i == 0 {
-				isInc = num < row[i+1]
-			} else if isInc && num > row[i+1] {
-				isSafe = false
-				break
-			} else if !isInc && num < row[i+1] {
-				isSafe = false
-				break
-			}
-
-			isSafe = checkSafe(isInc, row, i)
-
-			if !isSafe {
-				break
-			}
-		}
-
-		if isSafe {
+		if checkSpecificArrLoop(row) {
 			amountSafe++
 		}
 	}
@@ -113,7 +86,7 @@ func remove(slice []int, i int) []int {
 	return append(slice[:i], slice[i+1:]...)
 }
 
-func specificArrLoop(row []int) bool {
+func checkSpecificArrLoop(row []int) bool {
 	isSafe := false
 	isInc := false
 
@@ -124,15 +97,9 @@ func specificArrLoop(row []int) bool {
 
 		if i == 0 {
 			isInc = num < row[i+1]
-		} else if isInc && num > row[i+1] {
-			isSafe = false
-			break
-		} else if !isInc && num < row[i+1] {
-			isSafe = false
-			break
 		}
 
-		isSafe = checkSafe(isInc, row, i)
+		isSafe = checkSafe(isInc, row, i) && checkIncSafe(isInc, row, i)
 
 		if !isSafe {
 			break
@@ -142,13 +109,12 @@ func specificArrLoop(row []int) bool {
 	return isSafe
 }
 
-func DayTwoPuzzleTwo() int {
-
-	rows := parseInputDay2()
+func PuzzleTwo() int {
+	rows := parseInput()
 	amountSafe := 0
 
 	for _, row := range rows {
-		if specificArrLoop(row) {
+		if checkSpecificArrLoop(row) {
 			amountSafe++
 			continue
 		}
@@ -160,7 +126,7 @@ func DayTwoPuzzleTwo() int {
 			copy(arr, row)
 			arr = remove(arr, i)
 
-			isSafe = specificArrLoop(arr)
+			isSafe = checkSpecificArrLoop(arr)
 
 			if isSafe {
 				amountSafe++

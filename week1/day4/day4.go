@@ -1,14 +1,12 @@
-package week1
+package day4
 
 import (
 	"os"
 	"strings"
 )
 
-const inputDay3 = "MMMSXXMASM\nMSAMXMSMSA\nAMXSXMAAMM\nMSAMASMSMX\nXMASAMXAMM\nXXAMMXXAMA\nSMSMSASXSS\nSAXAMASAAA\nMAMMMXMMMM\nMXMXAXMASX"
-
 func parseDay4() []string {
-	content, _ := os.ReadFile("week1/inputs/day4.txt")
+	content, _ := os.ReadFile("week1/day4/day4.txt")
 	inputArr := strings.Split(string(content), "\n")
 
 	return inputArr

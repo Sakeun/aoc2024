@@ -1,4 +1,4 @@
-package week1
+package day3
 
 import (
 	"os"
@@ -10,7 +10,7 @@ import (
 func parseDay3() []string {
 	r, _ := regexp.Compile(`mul\((\d{1,3}),(\d{1,3})\)`)
 
-	content, _ := os.ReadFile("week1/inputs/day3.txt")
+	content, _ := os.ReadFile("week1/day3/day3.txt")
 
 	return r.FindAllString(string(content), -1)
 }
@@ -18,7 +18,7 @@ func parseDay3() []string {
 func parseDay3Pt2() []string {
 	r, _ := regexp.Compile(`mul\((\d{1,3}),(\d{1,3})\)|do\(\)|don't\(\)`)
 
-	content, _ := os.ReadFile("week1/inputs/day3.txt")
+	content, _ := os.ReadFile("week1/day3/day3.txt")
 
 	return r.FindAllString(string(content), -1)
 }
