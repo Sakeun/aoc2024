@@ -69,7 +69,7 @@ func checkIncSafe(isInc bool, row []int, i int) bool {
 	return true
 }
 
-func PuzzleOne() int {
+func Part1() int {
 	rows := parseInput()
 	amountSafe := 0
 
@@ -109,7 +109,7 @@ func checkSpecificArrLoop(row []int) bool {
 	return isSafe
 }
 
-func PuzzleTwo() int {
+func Part2() int {
 	rows := parseInput()
 	amountSafe := 0
 

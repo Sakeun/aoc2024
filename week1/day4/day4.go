@@ -60,7 +60,7 @@ func checkAround(letter string, col int, row int, arr []string, dir string) bool
 	}
 }
 
-func Day4Part1() int {
+func Part1() int {
 	arr := parseDay4()
 	initialLetter := "X"
 	totalOcc := 0
@@ -118,7 +118,7 @@ func checkXmas(arr []string, row int, col int) bool {
 	return validXmas
 }
 
-func Day4Part2() int {
+func Part2() int {
 	arr := parseDay4()
 	initialLetter := "A"
 	totalOcc := 0

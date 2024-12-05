@@ -23,7 +23,7 @@ func parseDay3Pt2() []string {
 	return r.FindAllString(string(content), -1)
 }
 
-func Day3Part1() int {
+func Part1() int {
 	regexResult := parseDay3()
 	totalSum := 0
 
@@ -42,7 +42,7 @@ func Day3Part1() int {
 	return totalSum
 }
 
-func Day3Part2() int {
+func Part2() int {
 	regexResult := parseDay3Pt2()
 	totalSum := 0
 	mulEnabled := true

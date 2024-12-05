@@ -40,7 +40,7 @@ func parseInput() ([]int, []int) {
 	return row1, row2
 }
 
-func PuzzleOne() int {
+func Part1() int {
 	row1, row2 := parseInput()
 	sum := 0
 
@@ -55,7 +55,7 @@ func PuzzleOne() int {
 	return sum
 }
 
-func PuzzleTwo() int {
+func Part2() int {
 	row1, row2 := parseInput()
 	row2Map := make(map[int]int)
 	totalCost := 0
