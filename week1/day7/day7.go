@@ -42,6 +42,11 @@ func calculateNum(a int, b int, equationType rune) int {
 		return a + b
 	}
 
+	if equationType == '|' {
+		num, _ := strconv.Atoi(strconv.Itoa(a) + strconv.Itoa(b))
+		return num
+	}
+
 	return a * b
 }
 
@@ -55,15 +60,9 @@ func traverseBinaryTree(currSum int, nums []int, solution int, eqType rune) bool
 
 	currSum = calculateNum(currSum, nums[0], eqType)
 
-	foundLeft := traverseBinaryTree(currSum, nums[1:], solution, '+')
+	foundSolution := traverseBinaryTree(currSum, nums[1:], solution, '+') || traverseBinaryTree(currSum, nums[1:], solution, '*')
 
-	if foundLeft {
-		return true
-	}
-
-	foundRight := traverseBinaryTree(currSum, nums[1:], solution, '*')
-
-	if foundRight {
+	if foundSolution {
 		return true
 	}
 
@@ -77,6 +76,39 @@ func Part1() int {
 
 	for k, v := range inputMap {
 		if traverseBinaryTree(v[0], v[1:], k, '+') || traverseBinaryTree(v[0], v[1:], k, '*') {
+			totalSum += k
+		}
+	}
+
+	return totalSum
+}
+
+func traverseTree(currSum int, nums []int, solution int, eqType rune) bool {
+	if len(nums) == 0 {
+		if currSum == solution {
+			return true
+		}
+		return false
+	}
+
+	currSum = calculateNum(currSum, nums[0], eqType)
+
+	foundSolution := traverseTree(currSum, nums[1:], solution, '+') || traverseTree(currSum, nums[1:], solution, '|') || traverseTree(currSum, nums[1:], solution, '*')
+
+	if foundSolution {
+		return true
+	}
+
+	return false
+}
+
+func Part2() int {
+	totalSum := 0
+	inputArr := parseInput()
+	inputMap := inputToMap(inputArr)
+
+	for k, v := range inputMap {
+		if traverseTree(v[0], v[1:], k, '+') || traverseTree(v[0], v[1:], k, '*') || traverseTree(v[0], v[1:], k, '|') {
 			totalSum += k
 		}
 	}
