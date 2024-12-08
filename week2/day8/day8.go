@@ -10,8 +10,6 @@ type Vector struct {
 	y int
 }
 
-const input = "............\n........0...\n.....0......\n.......0....\n....0.......\n......A.....\n............\n............\n........A...\n.........A..\n............\n............\n"
-
 func parseInput() []string {
 	content, _ := os.ReadFile("week2/day8/input.txt")
 	inputArr := strings.Split(string(content), "\n")
@@ -64,7 +62,6 @@ func checkIsValid(vec Vector, maxX int, maxY int) bool {
 func Part1() int {
 	inputArr := parseInput()
 	pointMap := mapDataPoints(inputArr)
-
 	hashtagArr := make([]Vector, 0)
 
 	for _, v := range pointMap {
@@ -88,6 +85,56 @@ func Part1() int {
 				if checkIsValid(newPosB, len(inputArr), len(inputArr[0])) && !contains(hashtagArr, newPosB) {
 					hashtagArr = append(hashtagArr, newPosB)
 				}
+			}
+		}
+	}
+
+	return len(hashtagArr)
+}
+
+func Part2() int {
+	inputArr := parseInput()
+	pointMap := mapDataPoints(inputArr)
+	hashtagArr := make([]Vector, 0)
+
+	for _, v := range pointMap {
+		for j, val := range v {
+			for i := 0; i < len(v); i++ {
+				if i == j {
+					continue
+				}
+
+				valB := v[i]
+
+				diffA := val.sub(valB)
+				diffB := valB.sub(val)
+
+				if !contains(hashtagArr, val) {
+					hashtagArr = append(hashtagArr, val)
+				}
+
+				if !contains(hashtagArr, v[i]) {
+					hashtagArr = append(hashtagArr, v[i])
+				}
+
+				newPos := val.add(diffA)
+
+				for checkIsValid(newPos, len(inputArr), len(inputArr[0])) {
+					if !contains(hashtagArr, newPos) {
+						hashtagArr = append(hashtagArr, newPos)
+					}
+					newPos = newPos.add(diffA)
+				}
+
+				newPos = valB.add(diffB)
+
+				for checkIsValid(newPos, len(inputArr), len(inputArr[0])) {
+					if !contains(hashtagArr, newPos) {
+						hashtagArr = append(hashtagArr, newPos)
+					}
+					newPos = newPos.add(diffB)
+				}
+
 			}
 		}
 	}
