@@ -1,7 +1,6 @@
 package day9
 
 import (
-	"fmt"
 	"github.com/Sakeun/aoc2024/datastructs"
 	"os"
 	"strconv"
@@ -84,6 +83,10 @@ func Part2() int {
 
 	for deq.Size() != 0 {
 		valueToGrab := deq.PeekBack()
+		if valueToGrab == "." {
+			_, _ = deq.PopBack()
+			continue
+		}
 		nums := vals{num: valueToGrab, indices: make(datastructs.Deque[int], 0)}
 		for i := len(deq) - 1; deq.PeekBack() == valueToGrab; i-- {
 			if i < 0 {
@@ -97,56 +100,39 @@ func Part2() int {
 			break
 		}
 
-		matchingPattern := datastructs.Deque[int]{}
+		matchingPattern := make([]int, 0)
 
-		for i := len(deq) - 1; i > 0; i-- {
+		for i := 0; i < deq.Size(); i++ {
 			if newDeq[i] == "." {
-				matchingPattern.PushFront(i)
-			}
-		}
-
-		finalPattern := make([]int, 0)
-
-		for i := 0; i < nums.indices.Size(); {
-			if matchingPattern.Size() == 0 {
-				break
-			}
-
-			val, _ := matchingPattern.PopFront()
-
-			if len(finalPattern) == 0 {
-				finalPattern = append(finalPattern, val)
-			} else {
-				if val-finalPattern[i] >= 2 {
-					finalPattern = make([]int, 0)
-					finalPattern = append(finalPattern, val)
-					i = 0
+				if len(matchingPattern) == 0 {
+					matchingPattern = append(matchingPattern, i)
 				} else {
-					finalPattern = append(finalPattern, val)
-					i++
+					if i-matchingPattern[len(matchingPattern)-1] >= 2 {
+						matchingPattern = make([]int, 0)
+					}
+
+					matchingPattern = append(matchingPattern, i)
+				}
+
+				if len(matchingPattern) == nums.indices.Size() {
+					break
 				}
 			}
-
-			if len(finalPattern) == nums.indices.Size() {
-				break
-			}
 		}
-		fmt.Println(finalPattern)
 
-		if len(finalPattern) != nums.indices.Size() {
+		if len(matchingPattern) != nums.indices.Size() {
 			continue
 		}
 
-		for _, val := range finalPattern {
+		for _, val := range matchingPattern {
 			newDeq[val] = nums.num
 		}
 
 		for _, val := range nums.indices {
 			newDeq[val] = "."
 		}
-	}
 
-	fmt.Println(newDeq)
+	}
 
 	totalSum := 0
 	i := 0
