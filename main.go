@@ -57,6 +57,6 @@ func main() {
 
 	fmt.Println("Day 9:")
 	fmt.Printf("Puzzle one: %v \n", day9.Part1())
-	//fmt.Printf("Puzzle two: %v \n", day8.Part2())
+	fmt.Printf("Puzzle two: %v \n", day9.Part2())
 	fmt.Println()
 }
