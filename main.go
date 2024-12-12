@@ -10,6 +10,7 @@ import (
 	"github.com/Sakeun/aoc2024/week1/day6"
 	"github.com/Sakeun/aoc2024/week1/day7"
 	"github.com/Sakeun/aoc2024/week2/day10"
+	"github.com/Sakeun/aoc2024/week2/day12"
 	"github.com/Sakeun/aoc2024/week2/day8"
 	"github.com/Sakeun/aoc2024/week2/day9"
 )
@@ -64,5 +65,10 @@ func main() {
 	fmt.Println("Day 10:")
 	fmt.Printf("Puzzle one: %v \n", day10.Part1())
 	fmt.Printf("Puzzle two: %v \n", day10.Part2())
+	fmt.Println()
+
+	fmt.Println("Day 12:")
+	fmt.Printf("Puzzle one: %v \n", day12.Part1())
+	//fmt.Printf("Puzzle two: %v \n", day10.Part2())
 	fmt.Println()
 }
